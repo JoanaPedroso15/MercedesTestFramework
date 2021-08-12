@@ -23,7 +23,7 @@ public class PageObjectsManager {
 
 	}
 	 
-	 public ConfigurationPage getConifugrationPage() {
+	 public ConfigurationPage getConfigurationPage() {
 
 		return (configPage == null) ? configPage = new ConfigurationPage(driver) : configPage;
 

@@ -1,11 +1,17 @@
 package framework;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -40,11 +46,14 @@ public class WebDriverFactory {
 		switch (driverType) {
 		case "firefox":
 			WebDriverManager.firefoxdriver().setup();
+		
 			driver = new FirefoxDriver();
 			break;
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
+			
 			driver = new ChromeDriver();
+			
 			break;
 		case "explorer":
 			WebDriverManager.iedriver().setup();
@@ -61,12 +70,14 @@ public class WebDriverFactory {
 			driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(),
 				TimeUnit.SECONDS);
+		
+		driver.manage().deleteAllCookies();
 		return driver;
 	}
 
 	public void closeDriver() {
 		driver.close();
-		driver.quit();
+		//driver.quit();
 	}
 
 }

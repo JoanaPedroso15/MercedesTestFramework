@@ -1,13 +1,29 @@
 package pageobjects;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.TargetLocator;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import framework.FileReaderManager;
+import framework.Wait;
+
 public class Homepage {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Homepage.class);
 	private WebDriver driver;
 	private WebDriverWait wait;
@@ -15,7 +31,94 @@ public class Homepage {
 	public Homepage(WebDriver _driver) {
 		this.driver = _driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 50);
+		wait = new WebDriverWait(driver, 10);
+	}
+
+	private static String carModel = "";
+	private static final String SECTION_OUR_MODELS = "//h1[contains(text(),'Our models')]";
+	private static final String BTN_BUILD_CAR = "//*[contains(text(), 'Build your car')]";
+	private static final String BTN_BUY_ONLINE = "//*[contains(text(), 'Buy online')]";
+	private static final String BTN_LEARN_MORE = "//*[contains(text(), 'Learn more')]";
+	private static final String IFRAME_LIST = "vmos-cont";
+	private static final String IFRAME_HTML = "//*[@class='datauri hydrated']";
+	private static final String OPTIONS = "//*[@class='datauri hydrated']/body/div/vmos/div/div/div/div/div/div[4]/div/section/div/div/child::*/child::*/child::*";
+
+	@FindBy(how = How.XPATH, using = SECTION_OUR_MODELS)
+	private WebElement sectionOurModels;
+
+	@FindBy(how = How.XPATH, using = BTN_BUILD_CAR)
+	private WebElement btnBuildCar;
+
+	@FindBy(how = How.XPATH, using = BTN_BUY_ONLINE)
+	private WebElement btnBuyOnline;
+
+	@FindBy(how = How.XPATH, using = BTN_LEARN_MORE)
+	private WebElement btnLearnMore;
+
+	@FindBy(how = How.ID, using = IFRAME_LIST)
+	private WebElement iframe;
+
+	@FindBy(how = How.XPATH, using = IFRAME_HTML)
+	private WebElement iframe_html;
+	
+	@FindBy(how = How.XPATH, using = OPTIONS)
+	private List <WebElement> options;
+
+	public void navigateToHomePage() {
+		LOG.info("Navigate to homepage");
+		driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
+		handleCookies();
+	}
+
+	private void handleCookies() {
+		LOG.info("Handle cookies");
+		WebElement acceptCookies = driver.findElement(By.xpath("//*[contains(text(), 'Agree to all')]"));
+		if (acceptCookies != null) {
+			acceptCookies.click();
+		}
+	}
+
+	public void selectsModel(String modelToSelect) {
+		driver = wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe));
+		driver = new WebDriverWait(driver, 30).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframe_html));
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		options = driver.findElements(By.xpath(OPTIONS));
+		LOG.info("Selects a model " + modelToSelect);
+		switch (modelToSelect) {
+		case "Hatchbacks":
+		WebElement hatchbacks =	wait.until(ExpectedConditions.elementToBeClickable(options.get(0)));
+		hatchbacks.click();
+		this.carModel = "Hatchback";
+			break;
+		case "Saloons":
+			break;
+		}
+		
+
+	}
+
+	public void actionOnSpecificModel(String actionToTake, String specificModel) {
+		LOG.info("Choose " + actionToTake + " on model " + carModel + ": " + specificModel);
+		String expressionOfButton = "//*[contains(text(), '" + carModel + "')]/preceding-sibling::span[contains(text(), '" + specificModel +"')]/parent::*/parent::*/parent::*/preceding-sibling::button";
+		List <WebElement> el =  driver.findElements(By.xpath("//*[contains(text(), '" + carModel + "')]/preceding-sibling::span[contains(text(), '" + specificModel +"')]/parent::*/parent::*/parent::*/parent::*"));
+		//
+		LOG.info("El " +el);
+		driver.findElement(By.xpath("//*[@class='vmos_2p2ii vmos_1qzBt']")).click();
+		chooseAction(actionToTake);
+	}
+
+	private void chooseAction(String action) {
+		switch (action) {
+		case "Build your car":
+			btnBuildCar.click();
+			break;
+		case "Learn more":
+			btnLearnMore.click();
+			break;
+		case "Buy online":
+			btnBuyOnline.click();
+			break;
+		}
 	}
 
 }
