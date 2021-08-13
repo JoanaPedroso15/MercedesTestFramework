@@ -5,6 +5,11 @@ import org.openqa.selenium.WebDriver;
 import pageobjects.ConfigurationPage;
 import pageobjects.Homepage;
 
+/**
+ * @author jpedroso
+ * @description - Makes sure there's only one instance of the classes that represent
+ * the pages of the scenario, according to the Page Object Model (POM) design pattern
+ */
 public class PageObjectsManager {
 	
 	private WebDriver driver;

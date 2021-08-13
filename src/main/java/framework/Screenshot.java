@@ -6,22 +6,34 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * @author jpedroso
+ * @description - Auxiliary class with methods that take screenshots of the entire webpage
+ * or of just one webelement and places the images in the desired destination folder
+ */
 public class Screenshot {
 
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Screenshot.class);
 	private static String fileSeparator = System.getProperty("file.separator");
 	public static String screenshotdir = System.getProperty("user.dir") + fileSeparator + "Reports" + fileSeparator
-			+ "Cucumber-Reports" + fileSeparator;
+			+ "Screenshots" + fileSeparator;
+
+	public static void getScreenshotElement (WebElement element, String imageName) {
 
 	
+	}
 	
 	public static String getScreenshot(WebDriver driver, String screenshotName) {
 		String dateName = new SimpleDateFormat("ddMMyyy_hhmmss").format(new Date());

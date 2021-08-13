@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author jpedroso
+ * @description - class that has methods to read each one of the properties
+ * defined on the Configuration.properties file
+ */
 public class ConfigurationFileReader {
 
 	private Properties properties;

@@ -2,6 +2,8 @@ package steps;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +23,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pageobjects.ConfigurationPage;
 import pageobjects.Homepage;
+import pageobjects.TestInputs;
 
 public class StepDefinitions {
 
@@ -70,14 +73,17 @@ public class StepDefinitions {
 	@Then("takes a screenshot of all the results available")
 	public void takes_a_screenshot_of_all_the_results_available() {
 		int numberResults = this.configPage.obtainsNumberResults();
-		this.configPage.analyzesResults(numberResults);
+		List<Map<String, String>> listResults = this.configPage.analyzesResults(numberResults);
+		TestInputs.setListResults(listResults);
+		this.configPage.validatesFilters(listResults);
 		this.configPage.takesScreenshotResults(numberResults);
 	}
 
 	
 	@Then("outputs the lowest and highest price results")
 	public void outputs_the_lowest_and_highest_price_results() {
-		this.configPage.outputsPricesToTextFile();
+		List<Map<String, String>> listResults = TestInputs.getListResults();
+		this.configPage.outputsPricesToTextFile(listResults);
 	}
 
 	@Before()

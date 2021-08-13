@@ -1,21 +1,22 @@
 package framework;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.ProfilesIni;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+/**
+ * @author jpedroso
+ * @description - 
+ * WebDriverFactory follows a singleton pattern: there's only one instance of this class. 
+ * Its jobs is to manage (get, create and close) the instance of the webdriver to be used on the test
+ * according to the browser chosen
+ */
 public class WebDriverFactory {
 	
 	private WebDriver driver;
@@ -34,6 +35,9 @@ public class WebDriverFactory {
 		LOG.info("Driver type " + driverType);
 	}
 
+	/**
+	 * @return WebDriver instance if there's already one or creates a new one if there's none
+	 */
 	public WebDriver getDriver() {
 		LOG.info("WebDriverFactory: getDriver()");
 		if (driver == null)
@@ -41,6 +45,11 @@ public class WebDriverFactory {
 		return driver;
 	}
 
+	/**
+	 * @return Initializes a webdriver according to the browser selected by user.
+	 * Uses the WebDriverManager (dependency with groupID = io.github.bonigarcia) to download and install the
+	 * correct webdriver if the machine doesn't have it installed yet.
+	 */
 	private WebDriver createDriver() {
 		LOG.info("WebDriverFactory: createDriver()");
 		switch (driverType) {
@@ -75,9 +84,12 @@ public class WebDriverFactory {
 		return driver;
 	}
 
+	/**
+	 * Closes the WebDriver 
+	 */
 	public void closeDriver() {
 		driver.close();
-		//driver.quit();
+		driver.quit();
 	}
 
 }
