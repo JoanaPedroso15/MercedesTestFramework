@@ -15,6 +15,7 @@
 
 	<dependencies>
 
+		
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -95,6 +96,11 @@
 			<version>7.0.2</version>
 		</dependency>
 
+<dependency>
+			<groupId>ru.yandex.qatools.ashot</groupId>
+			<artifactId>ashot</artifactId>
+			<version>1.5.4</version>
+		</dependency>
 
 
 		<dependency>

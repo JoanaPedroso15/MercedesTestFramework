@@ -36,7 +36,6 @@ public class Homepage {
 	public Homepage(WebDriver _driver) {
 		this.driver = _driver;
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, 20);
 	}
 
 	

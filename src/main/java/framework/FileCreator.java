@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.nio.file.Paths;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ public class FileCreator {
 	public static String fileDir = System.getProperty("user.dir") + fileSeparator + "Reports" + fileSeparator;
 
 	
-	public static void writeTextFile(String lowestPrice, String highestPrice) throws IOException {
-		File fout = new File(fileDir + "A-Class prices.txt");
+	public static void writeTextFile(String lowestPrice, String highestPrice, String modelCar) throws IOException {
+		File fout = new File(fileDir + "price_validation.txt");
 		FileOutputStream fos = new FileOutputStream(fout);
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-		bw.write("############ A-Class PRICE RANGE VALIDATION ####################");
+		bw.write(modelCar + " PRICE RANGE VALIDATION");
 		bw.newLine();
 		bw.newLine();
 		bw.write("Lowest Price: " + lowestPrice);

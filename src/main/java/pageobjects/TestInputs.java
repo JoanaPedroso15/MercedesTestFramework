@@ -20,6 +20,26 @@ public class TestInputs {
 
 	private static List<Map<String, String>> listResults = new ArrayList<>();
 	private static Map<String, List<String>> filter = new HashMap<>();
+	private static String model = "";
+	private static String subModel = "";
+	
+	
+
+	public static String getModel() {
+		return model;
+	}
+
+	public static void setModel(String model) {
+		TestInputs.model = model;
+	}
+
+	public static String getSubModel() {
+		return subModel;
+	}
+
+	public static void setSubModel(String subModel) {
+		TestInputs.subModel = subModel;
+	}
 
 	public static List<Map<String, String>> getListResults() {
 		return listResults;

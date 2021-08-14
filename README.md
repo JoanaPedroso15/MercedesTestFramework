@@ -24,7 +24,9 @@ TO RUN THE TESTS
 REPORTING
 
 Folder "Reports" contains:
-
+ 
+ - Folder with Cucumber-Reports which contains inside an html file that opens
+   an Extent Cucumber report;
  - Screenshots of results;
  - Text file with the lowest and highest prices;
 

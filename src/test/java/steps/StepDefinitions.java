@@ -42,9 +42,7 @@ public class StepDefinitions {
 		LOG.info("StepDefinitions constructor");
 		this.testContext = context;
 		this.driver = testContext.getWebDriverFactory().getDriver();
-		
-		// extent = ExtentReportManager.getInstance();
-		// logger = extent.createTest("Scenario01");
+
 	}
 
 	@Given("user opens Mercedes-Benz United Kingdom marketplace")
@@ -56,12 +54,14 @@ public class StepDefinitions {
 	@When("user scrolls to Our Models section and selects model {string}")
 	public void user_scrolls_to_our_models_section_and_selects_model(String modelToSelect) {
 		this.homepage.selectsModel(modelToSelect);
+		TestInputs.setModel(modelToSelect);
 
 	}
 
 	@When("selects {string} of the {string} model available")
 	public void selects_of_the_model_available(String actionToTake, String model) {
 		this.homepage.actionOnSpecificModel(actionToTake, model);
+		TestInputs.setSubModel(model);
 	}
 
 	@When("filters by {string}: {string}")
@@ -76,7 +76,6 @@ public class StepDefinitions {
 		List<Map<String, String>> listResults = this.configPage.analyzesResults(numberResults);
 		TestInputs.setListResults(listResults);
 		this.configPage.validatesFilters(listResults);
-		this.configPage.takesScreenshotResults(numberResults);
 	}
 
 	
@@ -91,6 +90,8 @@ public class StepDefinitions {
 
 		if ((new File(Screenshot.screenshotdir)).exists())
 			FileUtils.cleanDirectory(new File(Screenshot.screenshotdir));
+		
+
 	}
 
 	@After
@@ -98,7 +99,6 @@ public class StepDefinitions {
 		if (scenario.isFailed()) {
 			Screenshot.getScreenshot(driver, "Failed scenario");
 		}
-		//testContext.getExtentReporter().endTest();
 		testContext.getWebDriverFactory().closeDriver();
 	}
 

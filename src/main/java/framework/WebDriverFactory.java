@@ -25,7 +25,7 @@ public class WebDriverFactory {
 	private static final Logger LOG = LoggerFactory.getLogger(WebDriverFactory.class);
 
 	public WebDriverFactory() {
-		LOG.info("WebDriverFactory constrcutor");
+		LOG.info("WebDriverFactory constructor");
 
 		if (System.getProperty("browser") == null) {
 			driverType = FileReaderManager.getInstance().getConfigReader().getBrowser();
@@ -55,12 +55,10 @@ public class WebDriverFactory {
 		switch (driverType) {
 		case "firefox":
 			WebDriverManager.firefoxdriver().setup();
-		
 			driver = new FirefoxDriver();
 			break;
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			
 			driver = new ChromeDriver();
 			
 			break;
@@ -79,8 +77,8 @@ public class WebDriverFactory {
 			driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(),
 				TimeUnit.SECONDS);
-		
 		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 		return driver;
 	}
 
@@ -88,7 +86,7 @@ public class WebDriverFactory {
 	 * Closes the WebDriver 
 	 */
 	public void closeDriver() {
-		driver.close();
+		//driver.close();
 		driver.quit();
 	}
 
