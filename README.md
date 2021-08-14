@@ -16,10 +16,12 @@ TO RUN THE TESTS
 - Clone the project to your machine
 - Go to the testing-framework/ folder and run the command "mvn clean install"
 - The default browser is Google Chrome. If you want to run the tests in other browsers you can add to the command:
-   
-	-Dbrowser=firefox -> runs on Firefox
-   	-Dbrowser=explorer -> runs on Internet Explorer 
-        -Dbrowser=edge -> runs on Microsoft Edge
+      
+     -Dbrowser=firefox -> runs on Firefox
+
+     -Dbrowser=explorer -> runs on Internet Explorer 
+
+     -Dbrowser=edge -> runs on Microsoft Edge
 (Note: Tests do not run on Internet Explorer, because the website is not compatible with that browser)
 
 
@@ -45,8 +47,8 @@ src/main/java folder:
  - The project follows the Page Object Model (POM) design pattern in which each page of the website (defined by a different URL) is represented by a Java class
 where the WebElements present on that page are defined using its xpath, id, classname or other attributes. Each class contains the methods that make certain actions
 on those web elements and thus implement the steps of the scenario. 
-       - The classes that represent each one of the pages are in the folder src/main/java/pageObjects
-       - Framework core to allow a more modular construction as well as some auxiliary classes that allow functionalities such as taking screenshots or 
+  - The classes that represent each one of the pages are in the folder src/main/java/pageObjects
+  - Framework core to allow a more modular construction as well as some auxiliary classes that allow functionalities such as taking screenshots or 
           creating the output .txt file are on the /src/main/java/framework folder
 
 src/test/resources folder: 
