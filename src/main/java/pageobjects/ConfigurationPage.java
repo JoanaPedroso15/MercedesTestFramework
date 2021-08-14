@@ -47,7 +47,6 @@ public class ConfigurationPage {
 	private static final String PAGINATION = "cc-motorization-comparsion-status__pagination";
 	private static final String RESULTS_MESSAGE = "cc-motorization-comparsion-status__info-text";
 	private static final String LIST_RESULTS = "//cc-motorization-comparison/div/cc-slave-slider/div/div/div";
-	private static final String RESULTS_SECTION_FULL = "//*[@class='cc-motorization-comparison ng-star-inserted']";
 	private static final String SLIDER_BUTTONS = "//*[@class='cc-motorization-comparison ng-star-inserted']/div/*[@class='cc-slider--use-grid']/div/cc-slider-ui-container/cc-slider-buttons/div";
 
 	@FindBy(how = How.XPATH, using = FILTER_DIESEL)
@@ -85,6 +84,8 @@ public class ConfigurationPage {
 	public ConfigurationPage(WebDriver _driver) {
 		this.driver = _driver;
 		PageFactory.initElements(driver, this);
+		//LOG.info(TestInputs.getNavigationUrl());
+		driver.navigate().to(TestInputs.getNavigationUrl());
 	}
 
 	/**
@@ -174,9 +175,7 @@ public class ConfigurationPage {
 		List<Map<String, String>> listOfVehicles = new ArrayList<>();
 		int j = 1;
 		int i = 0;
-		// JavascriptExecutor js = (JavascriptExecutor) driver;
-		// js.executeScript("document.body.style.zoom='0.8'");
-		LOG.info("Zoom out of page");
+	
 		while (j <= numberResults) {
 			i = j;
 			listOfVehicles.add(retrievesResultData(i));
@@ -188,9 +187,9 @@ public class ConfigurationPage {
 				j++;
 			}
 		}
-		// js.executeScript("document.body.style.zoom='1'");
-		LOG.info("Zoom in of page");
-		LOG.info("Results " + listOfVehicles);
+		
+		listOfVehicles.stream().forEach(vehicle -> LOG.info(vehicle.toString() + "\n"));
+		
 		return listOfVehicles;
 	}
 
@@ -273,7 +272,6 @@ public class ConfigurationPage {
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Makes sure that all the vehicles presented in the search obey the rules

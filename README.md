@@ -18,7 +18,9 @@ TO RUN THE TESTS
 - The default browser is Google Chrome. If you want to run the tests in other browsers you can add to the command:
    
 	-Dbrowser=firefox -> runs on Firefox
-   	-Dbrowser=explorer -> runs of Internet Explorer
+   	-Dbrowser=explorer -> runs on Internet Explorer 
+        -Dbrowser=edge -> runs on Microsoft Edge
+(Note: Tests do not run on Internet Explorer, because the website is not compatible with that browser)
 
 
 REPORTING
@@ -29,6 +31,9 @@ Folder "Reports" contains:
    an Extent Cucumber report;
  - Screenshots of results;
  - Text file with the lowest and highest prices;
+
+Note that the reports are overriden everytime you run a new test to avoid accumulation
+of files. 
 
 
 EXPLANATION:

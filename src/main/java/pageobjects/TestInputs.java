@@ -22,8 +22,19 @@ public class TestInputs {
 	private static Map<String, List<String>> filter = new HashMap<>();
 	private static String model = "";
 	private static String subModel = "";
+	private static String navigationUrl = "";
 	
 	
+	
+	
+
+	public static String getNavigationUrl() {
+		return navigationUrl;
+	}
+
+	public static void setNavigationUrl(String navigationUrl) {
+		TestInputs.navigationUrl = navigationUrl;
+	}
 
 	public static String getModel() {
 		return model;

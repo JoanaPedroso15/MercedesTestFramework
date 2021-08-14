@@ -4,6 +4,7 @@ package framework;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class WebDriverFactory {
 	
 	private WebDriver driver;
-	private String driverType = "";
+	private static String driverType = "";
 
 	private static final Logger LOG = LoggerFactory.getLogger(WebDriverFactory.class);
 
@@ -35,6 +36,11 @@ public class WebDriverFactory {
 		LOG.info("Driver type " + driverType);
 	}
 
+	
+	public static String getDriverType () {
+		return driverType;
+	}
+	
 	/**
 	 * @return WebDriver instance if there's already one or creates a new one if there's none
 	 */
@@ -60,11 +66,14 @@ public class WebDriverFactory {
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
-			
 			break;
 		case "explorer":
 			WebDriverManager.iedriver().setup();
 			driver = new InternetExplorerDriver();
+			break;
+		case "edge":
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
 			break;
 		default:
 			WebDriverManager.chromedriver().setup();
